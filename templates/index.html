@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="static/js/jquery-3.4.1.js"></script>
+<script>
+$(document).ready(function(){
+    console.log("INDICE")
+
+});
+
+$(document).on('click', "#idBtnAjax", function() {
+    console.log("Entro al ajax")
+    $.ajax({
+        url: 'ajaxUsuario',
+        type: 'POST',
+        data:{
+            'usuario': 'Lucs',
+            'valor' : 123
+        },
+        success:function(response){console.log("BIENajax")},
+        error:function(response){console.log("malajax")}
+    });
+});
+
+$(document).on('click', "#idBtnCotizar", function() {
+    console.log("CLICK")
+    var peticion = new XMLHttpRequest();
+    peticion.onload = function(){
+        console.log("Trana")
+        if(peticion.status == 200){
+            console.log(peticion.response)
+        }
+        else{
+            console.log("MAL")
+        }
+    }
+
+    peticion.open('POST', 'http://localhost:5000/vanillaUsuario');
+    var datosJ = {
+        "usuario":"lucas",
+        "valor" : 123
+    };
+    peticion.send(datosJ);
+});
+
+</script>
 </head>
+
 <body>
-    Luke soy tu padres
+    Pedir cotizacion
+    <br>
+    <input id="idBtnCotizar" type="button" value="Cotizar">
+    <br>
+    <input id="idBtnAjax" type="button" value="Ajax">
+    <br>
+    <div>Los datos: </div>
+    <br>
 </body>
 </html>
