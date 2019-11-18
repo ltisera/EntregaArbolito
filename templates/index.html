@@ -8,58 +8,50 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="static/js/jquery-3.4.1.js"></script>
-<script>
-$(document).ready(function(){
-    console.log("INDICE")
-
-});
-
-$(document).on('click', "#idBtnAjax", function() {
-    console.log("Entro al ajax")
-    $.ajax({
-        url: 'ajaxUsuario',
-        type: 'POST',
-        data:{
-            'usuario': 'Lucs',
-            'valor' : 123
-        },
-        success:function(response){console.log("BIENajax")},
-        error:function(response){console.log("malajax")}
-    });
-});
-
-$(document).on('click', "#idBtnCotizar", function() {
-    console.log("CLICK")
-    var peticion = new XMLHttpRequest();
-    peticion.onload = function(){
-        console.log("Trana")
-        if(peticion.status == 200){
-            console.log(peticion.response)
-        }
-        else{
-            console.log("MAL")
-        }
-    }
-
-    peticion.open('POST', 'http://localhost:5000/vanillaUsuario');
-    var datosJ = {
-        "usuario":"lucas",
-        "valor" : 123
-    };
-    peticion.send(datosJ);
-});
-
-</script>
+    <script src="static/js/index.js"></script>
+    <link rel="stylesheet" href="static/css/estilos.css">
 </head>
 
 <body>
-    Pedir cotizacion
-    <br>
-    <input id="idBtnCotizar" type="button" value="Cotizar">
-    <br>
-    <input id="idBtnAjax" type="button" value="Ajax">
-    <br>
-    <div>Los datos: </div>
-    <br>
+    <div class="clsNavig"> EL arbolito</div>
+    <div id="idDivGrafico" class="clsA">GRAFIQUITO
+        
+    </div>
+    <div id="idDivLogin" class="clsB clsLogin">
+        INICIAR SESION
+        <br>
+        Usuario: <input id="idIUsuario" type="text">
+        <br>
+        Contrasseña<input id="idIPasswrd" type="text">
+        <br>
+        <input type="button" id="idIBtnIniciar" value="Iniciar">
+        <br>
+        <br>
+        Registrar Usuario
+        <br>
+        
+        Usuario: <input id="idRUsuario" type="text">
+        <br>
+        contraseña: <input id="idRPasswrd" type="text">
+        <br>
+        DNI: <input id="idRDni" type="text">
+        <br>
+        nombre: <input id="idRNombre" type="text">
+        <br>
+        apellido: <input id="idRApellido" type="text">
+        <br>
+        saldo inicial: <input id="idRSaldoInicial" type="text">
+        <br>
+        <input type="button" id="idBtnRegistrar" value="Registrar">
+        
+
+    </div>
+    <div id="idDivOperar" class="clsA clsOperar ocultar">
+        Operar
+    </div>
+
+    <div id="idDivDivisas" class="clsB clsDivisas ocultar">
+        DIVISAS
+    </div>
 </body>
 </html>

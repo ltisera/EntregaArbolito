@@ -1,0 +1,33 @@
+html,body{height:100%;}
+body {
+	overflow: hidden;
+  }
+/*Estilos de index*/
+.clsNavig{
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+	width: 100%;
+	height: 10%;
+	
+}
+.clsA{
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+	width: 60%;
+	height: 85%;
+	float: left;
+}
+.clsB{
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+	width: 30%;
+	height: 85%;
+	float: left;
+}
+
+.ocultar{
+	display: none;
+}

@@ -1,5 +1,7 @@
 from flask import Flask, send_from_directory, render_template, jsonify, request
 import requests
+
+from DAO.UsuarioDAO import UsuarioDAO
 #Fixer IO presonal api key
 #
 #38a0f63c483d5b0b1819e315606fb6aa
@@ -24,37 +26,27 @@ def cargarUsuario():
     print("Estoy dentro de mi test")
     return "409",200
 
+@app.route('/iniciarSesion', methods=['POST'])
+def iniciarSesion():
+    pass
 @app.route('/nuevoUsuario', methods=['POST'])
 def nuevoUsuario():
-    print("print de request")
-    print(request)
-    print("print de request.data")
-    print(request.data)
-    print("print de request.values")
+    udao = UsuarioDAO()
+    dni = request.values["dni"]
+    nick = request.values["nick"]
+    passwrd = request.values["passwrd"]
+    nombre = request.values["nombre"]
+    apellido = request.values["apellido"]
+    saldoInicial = request.values["saldoInicial"]
+    print("ME LLEGA")
+    print(dni, nick, passwrd, nombre, apellido, saldoInicial)
+    print("WESA")
+    
+    udao.nuevoUsuario(dni, nick, passwrd, nombre, apellido, saldoInicial)
     print(request.values)
     return "409",200
 
-@app.route('/ajaxUsuario', methods=['POST'])
-def ajaxUsuario():
-    print("AJAX")
-    print("print de request")
-    print(request)
-    print("print de request.data")
-    print(request.data)
-    print("print de request.values")
-    print(request.values)
-    return "409",200
 
-@app.route('/vanillaUsuario', methods=['POST'])
-def vanillaUsuario():
-    print("VANILLA")
-    print("print de request")
-    print(request)
-    print("print de request.data")
-    print(request.data)
-    print("print de request.values")
-    print(request.values)
-    return "409",200
 
 """
 Devuelve Archivos que se encuentren dentro de la carpeta static

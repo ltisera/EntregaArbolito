@@ -7,9 +7,9 @@ def getConfigDB():
     configDB = {}
     if (modo == 'desarrollo'):
         configDB['host'] = 'localhost'
-        configDB['user'] = 'adminODBC'
+        configDB['user'] = 'ArbolitoAdmin'
         configDB['password'] = '1234'
-        configDB['database'] = 'odbcViajes'
+        configDB['database'] = 'arbolitodb'
         configDB['auth_plugin']='mysql_native_password'
 
     elif(modo == 'produccion'):
