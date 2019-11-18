@@ -30,13 +30,14 @@ $(document).on('click', "#idIBtnIniciar", function() {
         },
         success:function(response){
             console.log("Bien Iniciar Session")
+            console.log(response)
             $("#idDivLogin").toggleClass("ocultar");
             $("#idDivGrafico").toggleClass("ocultar");
             $("#idDivOperar").toggleClass("ocultar");
             $("#idDivDivisas").toggleClass("ocultar");
-            
+            mostrarCotizacion();
         },
-        error:function(response){console.log("malajax")}
+        error:function(response){alert("Usuaria No valido")}
     });
 });
 
@@ -62,29 +63,38 @@ $(document).on('click', "#idBtnRegistrar", function() {
             $("#idDivGrafico").toggleClass("ocultar");
             $("#idDivOperar").toggleClass("ocultar");
             $("#idDivDivisas").toggleClass("ocultar");
-            
+            mostrarCotizacion();
         },
         error:function(response){console.log("malajax")}
     });
 });
 
-$(document).on('click', "#idBtnCotizar", function() {
-    console.log("CLICK")
-    var peticion = new XMLHttpRequest();
-    peticion.onload = function(){
-        console.log("Trana")
-        if(peticion.status == 200){
-            console.log(peticion.response)
-        }
-        else{
-            console.log("MAL")
-        }
-    }
 
-    peticion.open('POST', 'http://localhost:5000/vanillaUsuario');
-    var datosJ = {
-        "usuario":"lucas",
-        "valor" : 123
-    };
-    peticion.send(datosJ);
-});
+
+function mostrarCotizacion(){
+    $.ajax({
+        url: 'cotizar',
+        type: 'POST',
+        success: function(response){
+            console.log("Expectativa");
+            console.log(response);
+            console.log("REALIDAD");
+            console.log(response.rates);
+            var txtHTM = "Precio Venta <br>"
+            
+            for (r in response.rates){
+                txtHTM += r + ": " + (response.rates.ARS/response.rates[r]).toFixed(2) + "<br>"
+                
+            }
+            
+            txtHTM += "<br><br>Precio Compra <br>"
+            
+            for (r in response.rates){
+                txtHTM += r + ": " + ((response.rates.ARS/response.rates[r])*94/100).toFixed(2) + "<br>"
+                
+            }
+            $("#idDivDivisas").html(txtHTM);
+        },
+        error: function(response){console.log("MAL")},
+    });
+};

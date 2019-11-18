@@ -14,7 +14,7 @@ def inicialPagina():
 
 @app.route("/cotizar", methods=["POST"])
 def cotizar():
-    uri = "http://data.fixer.io/api/latest?access_key=38a0f63c483d5b0b1819e315606fb6aa&symbols=USD,AUD,CAD,PLN,MXN,ARS"
+    uri = "http://data.fixer.io/api/latest?access_key=38a0f63c483d5b0b1819e315606fb6aa&symbols=USD,AUD,CAD,PLN,MXN,ARS,EUR"
     quedato = requests.get(uri)
     return quedato.json()
 
@@ -28,7 +28,13 @@ def cargarUsuario():
 
 @app.route('/iniciarSesion', methods=['POST'])
 def iniciarSesion():
-    pass
+    udao = UsuarioDAO()
+    usuario = udao.iniciarSesion(request.values["nick"], request.values["passwrd"])
+    if (usuario is None):
+        return jsonify("usuario no encontrado"), 199  
+    return jsonify(usuario), 200
+
+
 @app.route('/nuevoUsuario', methods=['POST'])
 def nuevoUsuario():
     udao = UsuarioDAO()
