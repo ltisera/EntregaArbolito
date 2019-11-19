@@ -106,19 +106,20 @@ function mostrarCotizacion(){
 };
 
 function consultarDivisas(){
+    
     $.ajax({
-        url: 'consultarDivisas',
-        type: 'POST',
-        data:{
-            'dni': DNI,
-        },
+        url: 'consultarDivisasUsuario/'+DNI,
+        type: 'GET',
         success: function(response){
             console.log(response);
-
+            $("#idSelPagarConDivisas").html("")
+            $("#idSelPagarConDivisas").append(new Option("-seleccione una opcion-", "Opcion"))
+    
             var txtHTM = "<div class='clsMargen'> Sus Divisas"
             
             for (r in response){
                 txtHTM += "<br>" + response[r].divisas_simbolo + ": " + response[r].cantidad;
+                $("#idSelPagarConDivisas").append(new Option(response[r].nombre, response[r].divisas_simbolo))
             }
             $("#idContenidoConsultar").html(txtHTM + "</div>");
         },
@@ -132,7 +133,8 @@ $(document).on('click', ".clsOpc", function() {
     
     if(this.id == "idOpcComprar"){
         console.log("carga la lista de compraventa")
-        $(".clsSelDivisa").html("")
+        $("#idSelCompraDivisas").html("")
+        $("#idSelCompraDivisas").append(new Option("-seleccione una opcion-", "Opcion"))
         $.ajax({
             url: 'traerDivisas',
             type: 'GET',
@@ -140,7 +142,7 @@ $(document).on('click', ".clsOpc", function() {
                 console.log(response)
                 for (r in response){
                     console.log(response[r].simbolo)
-                    $(".clsSelDivisa").append(new Option(response[r].nombre, response[r].simbolo))
+                    $("#idSelCompraDivisas").append(new Option(response[r].nombre, response[r].simbolo))
                 }
             },
             error: function(response){console.log("Error al traer las divisas")}

@@ -46,7 +46,7 @@ class UsuarioDAO(ConexionBD):
         try:
             self.crearConexion()
             self.cursorDict()
-            consulta = "SELECT * FROM arbolitodb.usuarioxdivisas where Usuario_dni = {};".format(dni)
+            consulta = "SELECT * FROM arbolitodb.usuarioxdivisas INNER JOIN arbolitodb.divisas where divisas.simbolo = usuarioxdivisas.divisas_simbolo AND Usuario_dni = {};".format(dni)
             print("ORINTO LA CONSULTAAAAAA")
             print(consulta)
             self._micur.execute(consulta)
