@@ -36,7 +36,7 @@ def iniciarSesion():
     return jsonify(usuario), 200
 
 
-@app.route('/traerDivisas', methods=['POST'])
+@app.route('/traerDivisas', methods=['GET'])
 def traeDivisas():
     udao = UsuarioDAO()
     listaDivisas = udao.traerDivisas()
@@ -58,6 +58,13 @@ def nuevoUsuario():
     udao.nuevoUsuario(dni, nick, passwrd, nombre, apellido, saldoInicial)
     print(request.values)
     return "409", 200
+
+@app.route('/consultarDivisasUsuario/<int:dni>', methods=['GET'])
+def consultarDivisasUsuario(dni):
+    udao = UsuarioDAO()
+    divisas = udao.consultarDivisas(dni)
+    return jsonify(divisas), 200
+
 
 
 @app.route('/consultarDivisas', methods=['POST'])

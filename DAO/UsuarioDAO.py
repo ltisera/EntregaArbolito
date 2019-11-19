@@ -31,7 +31,7 @@ class UsuarioDAO(ConexionBD):
         try:
             self.crearConexion()
             self.cursorDict()
-            consulta = "SELECT simbolo FROM divisas"
+            consulta = "SELECT * FROM divisas"
             self._micur.execute(consulta)
             for divisa in self._micur:
                 listaDivisas.append(divisa)

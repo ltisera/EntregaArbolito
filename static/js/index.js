@@ -132,8 +132,18 @@ $(document).on('click', ".clsOpc", function() {
     
     if(this.id == "idOpcComprar"){
         console.log("carga la lista de compraventa")
+        $(".clsSelDivisa").html("")
         $.ajax({
-            url: 'traerDivisas'
+            url: 'traerDivisas',
+            type: 'GET',
+            success: function(response){
+                console.log(response)
+                for (r in response){
+                    console.log(response[r].simbolo)
+                    $(".clsSelDivisa").append(new Option(response[r].nombre, response[r].simbolo))
+                }
+            },
+            error: function(response){console.log("Error al traer las divisas")}
         });
     }
 });
