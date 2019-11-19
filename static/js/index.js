@@ -174,8 +174,9 @@ $(document).on('click', "#idBtnComprarDivisas", function() {
         url: 'usuarioCompraDivisa',
         type: 'POST',
         data: {
-            'divisaOrigen' : $("#idSelCompraDivisas").val(),
-            'divisaDestino' : $("#idSelPagarConDivisas").val(),
+            'dni' : DNI,
+            'divisaQueCompro' : $("#idSelCompraDivisas").val(),
+            
             'cantidad' : $("#inpCantidadAComprar").val()
         },
         success: function(response){console.log(response)},

@@ -121,7 +121,7 @@ class UsuarioDAO(ConexionBD):
             self.cerrarConexion()
             
         return divisas
-
+    
     def nuevoUsuario(self, dni, nick, passwrd, nombre, apellido, saldoInicial):
         try:
             self.crearConexion()
