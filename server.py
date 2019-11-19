@@ -83,20 +83,41 @@ def consultarDivisas():
 @app.route('/usuarioCompraDivisa', methods=['POST'])
 def usuarioCompraDivisa():
     dni = request.values["dni"]
-    divisaO = request.values["divisaOrigen"]
-    divisaD = request.values["divisaDestino"]
-    cantidad = request.values["cantidad"]
+    divisaCompro = request.values["divisaQueCompro"]
+    divisaPago = "ARS"
+    cantidadQueQuiero = request.values["cantidad"]
     udao = UsuarioDAO()
+    cantidadQueTengo = 0
     divisas = udao.consultarDivisas(dni)
-    
+    print("TENGO FOR")
+    for d in divisas:
+        if(d["simbolo"]==divisaPago):
+            cantidadQueTengo = d["cantidad"]
     print(dni)
-    print(divisaO)
-    print(divisaD)
-    print(cantidad)
+    print(divisaCompro)
+    print(divisaPago)
+    print(cantidadQueQuiero)
     print("De esto dispongo")
     print(divisas)
-    if((divisaD == "Opcion") or (divisaO == "Opcion") or (divisaD == divisaO)):
+
+    uri = "http://data.fixer.io/api/latest?access_key=38a0f63c483d5b0b1819e315606fb6aa&symbols=USD,AUD,CAD,PLN,MXN,ARS,EUR"
+    cotizaciones = requests.get(uri)
+    datosCot = cotizaciones.json()
+    precioCompro = datosCot["rates"][divisaCompro]
+    precioPago = datosCot["rates"][divisaPago]
+    print("Estas son las cotizaciones")
+    print("Esto vale ", divisaCompro, ": ", datosCot["rates"][divisaCompro])
+    print("Esto vale ", divisaPago, ": ", datosCot["rates"][divisaPago])
+    print("Esto es la cantidad que tengo de ", divisaPago, ": ", cantidadQueTengo)
+    if((divisaPago == "Opcion") or (divisaCompro == "Opcion") or (divisaPago == divisaCompro)):
         return("err"),400
+    
+    if(( float(cantidadQueQuiero) *  float(precioPago) /  float(precioCompro)) <  float(cantidadQueTengo)):
+        udao.depositarDivisas(dni,divisaCompro, cantidadQueQuiero)
+        return jsonify("200"), 200
+    else:
+        print("EstasPOBRE CULEAO")
+        return jsonify("40"), 400
     return jsonify("200"), 200
 
 
