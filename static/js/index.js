@@ -149,3 +149,19 @@ $(document).on('click', ".clsOpc", function() {
         });
     }
 });
+
+$(document).on('click', "#idBtnComprarDivisas", function() {
+    
+    $.ajax({
+        url: 'usuarioCompraDivisa',
+        type: 'POST',
+        data: {
+            'divisaOrigen' : $("#idSelCompraDivisas").val(),
+            'divisaDestino' : $("#idSelPagarConDivisas").val(),
+            'cantidad' : $("#inpCantidadAComprar").val()
+        },
+        success: function(response){console.log(response)},
+        error: function(response){console.log(response)}
+    })
+    
+});

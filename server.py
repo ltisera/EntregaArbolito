@@ -74,6 +74,25 @@ def consultarDivisas():
     divisas = udao.consultarDivisas(dni)
     return jsonify(divisas), 200
 
+@app.route('/usuarioCompraDivisa', methods=['POST'])
+def usuarioCompraDivisa():
+    udao = UsuarioDAO()
+    divisas = udao.consultarDivisas()
+    dni = request.values["dni"]
+    divisaO = request.values["divisaOrigen"]
+    divisaD = request.values["divisaDestino"]
+    cantidad = request.values["cantidad"]
+    print(dni)
+    print(divisaO)
+    print(divisaD)
+    print(cantidad)
+    print("De esto dispongo")
+    print(divisas)
+    if((divisaD == "Opcion") or (divisaO == "Opcion") or (divisaD == divisaO)):
+        return("err"),400
+    return jsonify("200"), 200
+
+
 
 """
 Devuelve Archivos que se encuentren dentro de la carpeta static
