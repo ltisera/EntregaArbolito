@@ -13,41 +13,70 @@
 </head>
 
 <body>
-    <div class="clsNavig"> EL arbolito</div>
+    <div class="clsNavig"> <h1>EL arbolito</h1></div>
     <div id="idDivGrafico" class="clsA">GRAFIQUITO
         
     </div>
     <div id="idDivLogin" class="clsB clsLogin">
-        INICIAR SESION
-        <br>
-        Usuario: <input id="idIUsuario" type="text">
-        <br>
-        Contrasseña<input id="idIPasswrd" type="text">
-        <br>
-        <input type="button" id="idIBtnIniciar" value="Iniciar">
-        <br>
-        <br>
-        Registrar Usuario
-        <br>
-        
-        Usuario: <input id="idRUsuario" type="text">
-        <br>
-        contraseña: <input id="idRPasswrd" type="text">
-        <br>
-        DNI: <input id="idRDni" type="text">
-        <br>
-        nombre: <input id="idRNombre" type="text">
-        <br>
-        apellido: <input id="idRApellido" type="text">
-        <br>
-        saldo inicial: <input id="idRSaldoInicial" type="text">
-        <br>
-        <input type="button" id="idBtnRegistrar" value="Registrar">
-        
-
+        <div class="clsMargen">
+            INICIAR SESION
+            <br>
+            Usuario: <input id="idIUsuario" type="text">
+            <br>
+            Contrasseña<input id="idIPasswrd" type="text">
+            <br>
+            <input type="button" id="idIBtnIniciar" value="Iniciar">
+            <br>
+            <br>
+            Registrar Usuario
+            <br>
+            
+            Usuario: <input id="idRUsuario" type="text">
+            <br>
+            contraseña: <input id="idRPasswrd" type="text">
+            <br>
+            DNI: <input id="idRDni" type="text">
+            <br>
+            nombre: <input id="idRNombre" type="text">
+            <br>
+            apellido: <input id="idRApellido" type="text">
+            <br>
+            saldo inicial: <input id="idRSaldoInicial" type="text">
+            <br>
+            <input type="button" id="idBtnRegistrar" value="Registrar">
+        </div>
     </div>
     <div id="idDivOperar" class="clsA clsOperar ocultar">
-        Operar
+        <div class="clsOpc" id="idOpcConsultar">
+            Consultar
+        </div>
+        <div class="clsContenidoOpc" id="idContenidoConsultar">
+            Consultar contenido
+        </div>
+        <div class="clsOpc" id="idOpcComprar">
+            Comprar
+        </div>
+        <div class="ocultar clsContenidoOpc" id="idContenidoComprar">
+            Comprar contenido
+        </div>
+        <div class="clsOpc" id="idOpcVender">
+            Vender
+        </div>
+        <div class="ocultar clsContenidoOpc" id="idContenidoVender">
+            Vender contenido
+        </div>
+        <div class="clsOpc" id="idOpcDepositar">
+            Depositar
+        </div>
+        <div class="ocultar clsContenidoOpc" id="idContenidoDepositar">
+            Depositar contenido
+        </div>
+        <div class="clsOpc"  id="idOpcRetirar">
+            Retirar
+        </div>
+        <div class="ocultar clsContenidoOpc" id="idContenidoRetirar">
+            Retirar contenido
+        </div>
     </div>
 
     <div id="idDivDivisas" class="clsB clsDivisas ocultar">

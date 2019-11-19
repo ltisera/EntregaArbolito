@@ -4,18 +4,19 @@ body {
   }
 /*Estilos de index*/
 .clsNavig{
+	text-align: center;
 	border-style: solid;
 	border-color: black;
 	border-width: 2px;
-	width: 100%;
 	height: 10%;
-	
+	overflow:hidden;
 }
 .clsA{
 	border-style: solid;
 	border-color: black;
 	border-width: 2px;
-	width: 60%;
+	border-top: 0px;
+	width: 70%;
 	height: 85%;
 	float: left;
 }
@@ -23,11 +24,28 @@ body {
 	border-style: solid;
 	border-color: black;
 	border-width: 2px;
-	width: 30%;
+	border-top: 0px;
+	border-left: 0px;
 	height: 85%;
-	float: left;
+	overflow:hidden;
 }
 
 .ocultar{
 	display: none;
+}
+
+.clsOpc{
+	background-color: lightblue;
+	text-align: center;
+	overflow:hidden;
+	height: 10%;
+}
+
+.clsContenidoOpc{
+	overflow:hidden;
+	height: 50%;
+}
+
+.clsMargen{
+	margin: 2%;
 }

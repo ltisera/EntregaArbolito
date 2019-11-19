@@ -80,21 +80,28 @@ function mostrarCotizacion(){
             console.log(response);
             console.log("REALIDAD");
             console.log(response.rates);
-            var txtHTM = "Precio Venta <br>"
+            var txtHTM = "<div class='clsMargen'> Precio Venta"
             
             for (r in response.rates){
-                txtHTM += r + ": " + (response.rates.ARS/response.rates[r]).toFixed(2) + "<br>"
-                
+                txtHTM += "<br>" + r + ": " + (response.rates.ARS/response.rates[r]).toFixed(2);
             }
             
-            txtHTM += "<br><br>Precio Compra <br>"
+            txtHTM += "<br><br><br>Precio Compra"
             
             for (r in response.rates){
-                txtHTM += r + ": " + ((response.rates.ARS/response.rates[r])*94/100).toFixed(2) + "<br>"
-                
+                txtHTM += "<br>" + r + ": " + ((response.rates.ARS/response.rates[r])*94/100).toFixed(2);
             }
-            $("#idDivDivisas").html(txtHTM);
+            
+            $("#idDivDivisas").html(txtHTM + "</div>");
         },
         error: function(response){console.log("MAL")},
     });
 };
+
+
+
+$(document).on('click', ".clsOpc", function() {
+    $(".clsContenidoOpc").toggleClass("ocultar", true);
+    $("#idContenido"+(this.id).substring(5)).toggleClass("ocultar", false);
+            
+});
