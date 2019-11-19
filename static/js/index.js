@@ -107,19 +107,20 @@ function mostrarCotizacion(){
 };
 
 function consultarDivisas(){
+    
     $.ajax({
-        url: 'consultarDivisas',
-        type: 'POST',
-        data:{
-            'dni': DNI,
-        },
+        url: 'consultarDivisasUsuario/'+DNI,
+        type: 'GET',
         success: function(response){
             console.log(response);
-
+            $(".clsSelDivisaUsuario").html("")
+            $(".clsSelDivisaUsuario").append(new Option("-seleccione una opcion-", "Opcion"))
+    
             var txtHTM = "<div class='clsMargen'> Sus Divisas"
             
             for (r in response){
                 txtHTM += "<br>" + response[r].divisas_simbolo + ": " + response[r].cantidad;
+                $(".clsSelDivisaUsuario").append(new Option(response[r].nombre, response[r].divisas_simbolo))
             }
             $("#idContenidoConsultar").html(txtHTM + "</div>");
         },
@@ -153,7 +154,9 @@ function depositar(){
 $(document).on('click', ".clsOpc", function() {
     $(".clsContenidoOpc").toggleClass("ocultar", true);
     $("#idContenido"+(this.id).substring(5)).toggleClass("ocultar", false);
-
+    if(this.id == "idOpcConsultar"){
+        consultarDivisas();
+    }
 });
 
 function cargarSelDeDivisas(){
@@ -171,4 +174,4 @@ function cargarSelDeDivisas(){
         error: function(response){console.log("Error al traer las divisas")}
     });
 
-}
+};

@@ -50,15 +50,15 @@ class UsuarioDAO(ConexionBD):
             print("ConsultaTSTSTSTSTST")
             print(consulta)
             self._micur.execute(consulta)
-
-            if self._micur.fetchone() is None:
-                consulta = "INSERT INTO usuarioxdivisas (`Usuario_dni`, `divisas_simbolo`, `cantidad`) VALUES ({}, '{}', {});".format(dni, simbolo, cantidad)
+            consultaCantidad = self._micur.fetchone()
+            if consultaCantidad is not None:
+                cantidad = consultaCantidad.get("cantidad", 0) + float(cantidad)
+                consulta = "UPDATE usuarioxdivisas SET cantidad = {} WHERE Usuario_dni = {} and divisas_simbolo = '{}';".format(cantidad,dni,simbolo)
                 print("ConsultaTSTSTSTSTST")
                 print(consulta)
-                self._micur.execute(consulta)
             else:
-                cantidad = self._micur.fetchone().get("cantidad", 0) + float(cantidad)
-                consulta = "UPDATE usuarioxdivisas SET cantidad = {} WHERE Usuario_dni = {} and divisas_simbolo = '{}';".format(cantidad,dni,simbolo)
+                self._micur.execute(consulta)
+                consulta = "INSERT INTO usuarioxdivisas (`Usuario_dni`, `divisas_simbolo`, `cantidad`) VALUES ({}, '{}', {});".format(dni, simbolo, cantidad)
                 print("ConsultaTSTSTSTSTST")
                 print(consulta)
                 self._micur.execute(consulta)
@@ -76,7 +76,7 @@ class UsuarioDAO(ConexionBD):
         try:
             self.crearConexion()
             self.cursorDict()
-            consulta = "SELECT * FROM arbolitodb.usuarioxdivisas where Usuario_dni = {};".format(dni)
+            consulta = "SELECT * FROM arbolitodb.usuarioxdivisas INNER JOIN arbolitodb.divisas where divisas.simbolo = usuarioxdivisas.divisas_simbolo AND Usuario_dni = {};".format(dni)
             print("ORINTO LA CONSULTAAAAAA")
             print(consulta)
             self._micur.execute(consulta)
