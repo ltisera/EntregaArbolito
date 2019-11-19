@@ -82,13 +82,29 @@
             Depositar
         </div>
         <div class="ocultar clsContenidoOpc" id="idContenidoDepositar">
-            Depositar contenido
+            Seleccione la moneda que desea depositar
+            <select id="idSelDepositarDivisa" class="clsSelDivisa">
+                <option value="SOP">-Seleccione una opcion-</option>
+                <option value="ARS">Pesos Argentinos</option>
+            </select>
+            <br>
+            Seleccione la cantidad que desea depositar
+            <input type="text" id="idCantidadDepositarDivisa">
+            <input type="button" id="idBotonDepositarDivisa" value="Depositar" onClick="depositar()">
         </div>
         <div class="clsOpc"  id="idOpcRetirar">
             Retirar
         </div>
         <div class="ocultar clsContenidoOpc" id="idContenidoRetirar">
-            Retirar contenido
+            Seleccione la moneda que desea retirar
+            <select id="idSelRetirarDivisa">
+                <option value="SOP">-Seleccione una opcion-</option>
+                <option value="ARS">Pesos Argentinos</option>
+            </select>
+            <br>
+            Seleccione la cantidad que desea retirar
+            <input type="text" id="idCantidadRetirarDivisa">
+            <input type="button" id="idBotonRetirarDivisa" value="Retirar">
         </div>
     </div>
 

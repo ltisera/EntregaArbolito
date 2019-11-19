@@ -39,7 +39,37 @@ class UsuarioDAO(ConexionBD):
             print("DANGER ALGO OCURRIO: " + str(err))
         finally:
             self.cerrarConexion()
-        return listaDivisas            
+        return listaDivisas
+
+
+    def depositarDivisas(self, dni, simbolo, cantidad):
+        try:
+            self.crearConexion()
+            self.cursorDict()
+            consulta = "select cantidad from usuarioxdivisas where Usuario_dni = {} and divisas_simbolo = '{}';".format(dni, simbolo)
+            print("ConsultaTSTSTSTSTST")
+            print(consulta)
+            self._micur.execute(consulta)
+
+            if self._micur.fetchone() is None:
+                consulta = "INSERT INTO usuarioxdivisas (`Usuario_dni`, `divisas_simbolo`, `cantidad`) VALUES ({}, '{}', {});".format(dni, simbolo, cantidad)
+                print("ConsultaTSTSTSTSTST")
+                print(consulta)
+                self._micur.execute(consulta)
+            else:
+                cantidad = self._micur.fetchone().get("cantidad", 0) + float(cantidad)
+                consulta = "UPDATE usuarioxdivisas SET cantidad = {} WHERE Usuario_dni = {} and divisas_simbolo = '{}';".format(cantidad,dni,simbolo)
+                print("ConsultaTSTSTSTSTST")
+                print(consulta)
+                self._micur.execute(consulta)
+            self._bd.commit()
+
+        except mysql.connector.errors.IntegrityError as err:
+            print("DANGER ALGO OCURRIO: " + str(err))
+        finally:
+            self.cerrarConexion()
+        return True
+
 
     def consultarDivisas(self, dni):
         divisas = []

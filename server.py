@@ -42,6 +42,12 @@ def traeDivisas():
     listaDivisas = udao.traerDivisas()
     return jsonify(listaDivisas)
 
+@app.route('/depositarDivisas', methods=['POST'])
+def depositarDivisas():
+    udao = UsuarioDAO()
+    listo = udao.depositarDivisas(request.values["dni"], request.values["simbolo"], request.values["cantidad"])
+    return jsonify(listo), 200
+
 
 @app.route('/nuevoUsuario', methods=['POST'])
 def nuevoUsuario():

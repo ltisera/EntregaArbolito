@@ -2,7 +2,6 @@ var DNI = 0;
 
 $(document).ready(function(){
     console.log("INDICE")
-
 });
 
 $(document).on('click', "#idBtnAjax", function() {
@@ -100,6 +99,8 @@ function mostrarCotizacion(){
             }
             
             $("#idDivDivisas").html(txtHTM + "</div>");
+
+            cargarSelDeDivisas();
         },
         error: function(response){console.log("MAL")},
     });
@@ -126,24 +127,48 @@ function consultarDivisas(){
     });
 };
 
+function depositar(){
+    $.ajax({
+        url: 'depositarDivisas',
+        type: 'POST',
+        data:{
+            'dni': DNI,
+            'simbolo': $("#idSelDepositarDivisa").val(),
+            'cantidad': $("#idCantidadDepositarDivisa").val(),
+        },
+        success: function(response){
+            console.log(response);
+
+            var txtHTM = "<div class='clsMargen'> Sus Divisas"
+            
+            for (r in response){
+                txtHTM += "<br>" + response[r].divisas_simbolo + ": " + response[r].cantidad;
+            }
+            $("#idContenidoConsultar").html(txtHTM + "</div>");
+        },
+        error: function(response){console.log("MAL")},
+    });
+};
+
 $(document).on('click', ".clsOpc", function() {
     $(".clsContenidoOpc").toggleClass("ocultar", true);
     $("#idContenido"+(this.id).substring(5)).toggleClass("ocultar", false);
-    
-    if(this.id == "idOpcComprar"){
-        console.log("carga la lista de compraventa")
-        $(".clsSelDivisa").html("")
-        $.ajax({
-            url: 'traerDivisas',
-            type: 'GET',
-            success: function(response){
-                console.log(response)
-                for (r in response){
-                    console.log(response[r].simbolo)
-                    $(".clsSelDivisa").append(new Option(response[r].nombre, response[r].simbolo))
-                }
-            },
-            error: function(response){console.log("Error al traer las divisas")}
-        });
-    }
+
 });
+
+function cargarSelDeDivisas(){
+    console.log("carga la lista de compraventa")
+    $(".clsSelDivisa").html("")
+    $.ajax({
+        url: 'traerDivisas',
+        type: 'GET',
+        success: function(response){
+            console.log(response)
+            for (r in response){
+                $(".clsSelDivisa").append(new Option(response[r].nombre, response[r].simbolo))
+            }
+        },
+        error: function(response){console.log("Error al traer las divisas")}
+    });
+
+}
