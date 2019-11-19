@@ -35,6 +35,13 @@ def iniciarSesion():
     return jsonify(usuario), 200
 
 
+@app.route('/traerDivisas', methods=['POST'])
+def traeDivisas():
+    udao = UsuarioDAO()
+    listaDivisas = udao.traerDivisas()
+    return jsonify(listaDivisas)
+
+
 @app.route('/nuevoUsuario', methods=['POST'])
 def nuevoUsuario():
     udao = UsuarioDAO()

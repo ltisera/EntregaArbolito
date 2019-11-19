@@ -103,5 +103,11 @@ function mostrarCotizacion(){
 $(document).on('click', ".clsOpc", function() {
     $(".clsContenidoOpc").toggleClass("ocultar", true);
     $("#idContenido"+(this.id).substring(5)).toggleClass("ocultar", false);
-            
+    
+    if(this.id == "idOpcComprar"){
+        console.log("carga la lista de compraventa")
+        $.ajax({
+            url: 'traerDivisas'
+        });
+    }
 });

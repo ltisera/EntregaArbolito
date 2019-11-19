@@ -1,6 +1,6 @@
 import mysql.connector
 import sys
-
+sys.path.append(r'D:\DropBox\Dropbox\FAcultad\Sistemas Distribuidos\EntregaArbolito\EntregaArbolito')
 
 import random
 from DAO.ConexionDB import ConexionBD
@@ -25,8 +25,21 @@ class UsuarioDAO(ConexionBD):
             self.cerrarConexion()
         return usuario
 
+    def traerDivisas(self):
+        listaDivisas = []
+        try:
+            self.crearConexion()
+            self.cursorDict()
+            consulta = "SELECT simbolo FROM divisas"
+            self._micur.execute(consulta)
+            for divisa in self._micur:
+                listaDivisas.append(divisa)
+        except mysql.connector.errors.IntegrityError as err:
+            print("DANGER ALGO OCURRIO: " + str(err))
+        finally:
+            self.cerrarConexion()
+            return listaDivisas
     def nuevoUsuario(self, dni, nick, passwrd, nombre, apellido, saldoInicial):
-        
         try:
             self.crearConexion()
             self.cursorDict()
@@ -49,5 +62,5 @@ class UsuarioDAO(ConexionBD):
 
 if __name__ == '__main__':
     udao = UsuarioDAO()
-    udao.nuevoUsuario(3,"Nickote","1234","Nico","mati",123.6)
+    print(udao.traerDivisas())
     print("URRA")
