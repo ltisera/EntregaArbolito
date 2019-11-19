@@ -1,0 +1,14 @@
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AED', 'Dirham de los Emiratos Árabes Unidos');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AFN', '	Afgani afgano');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('ALL', 'Lek albano');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AMD', 'Dram armenio');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('ANG', 'Florín de las Antillas Holandesas');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AOA', '	Kwanza angoleño');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('ARS', 'Peso argentino');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AUD', '	Dólar australiano');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AWG', 'Florín arubeño');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('AZM', 'Manat azerbaiyano');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('BRL', 'Real brasileño');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('EUR', 'Euro');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('USD', 'Dólar estadounidense');
+INSERT INTO `arbolitodb`.`divisas` (`simbolo`, `nombre`) VALUES ('JPY', 'Yen japonés');
