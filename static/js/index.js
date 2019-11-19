@@ -1,3 +1,5 @@
+var DNI = 0;
+
 $(document).ready(function(){
     console.log("INDICE")
 
@@ -29,8 +31,11 @@ $(document).on('click', "#idIBtnIniciar", function() {
             
         },
         success:function(response){
+            DNI = response.dni;
+            consultarDivisas();
             console.log("Bien Iniciar Session")
             console.log(response)
+            console.log(response.dni)
             $("#idDivLogin").toggleClass("ocultar");
             $("#idDivGrafico").toggleClass("ocultar");
             $("#idDivOperar").toggleClass("ocultar");
@@ -58,6 +63,8 @@ $(document).on('click', "#idBtnRegistrar", function() {
             'saldoInicial': $("#idRSaldoInicial").val()
         },
         success:function(response){
+            DNI = $("#idRDni").val();
+            consultarDivisas();
             console.log("BIENajax")
             $("#idDivLogin").toggleClass("ocultar");
             $("#idDivGrafico").toggleClass("ocultar");
@@ -98,7 +105,26 @@ function mostrarCotizacion(){
     });
 };
 
+function consultarDivisas(){
+    $.ajax({
+        url: 'consultarDivisas',
+        type: 'POST',
+        data:{
+            'dni': DNI,
+        },
+        success: function(response){
+            console.log(response);
 
+            var txtHTM = "<div class='clsMargen'> Sus Divisas"
+            
+            for (r in response){
+                txtHTM += "<br>" + response[r].divisas_simbolo + ": " + response[r].cantidad;
+            }
+            $("#idContenidoConsultar").html(txtHTM + "</div>");
+        },
+        error: function(response){console.log("MAL")},
+    });
+};
 
 $(document).on('click', ".clsOpc", function() {
     $(".clsContenidoOpc").toggleClass("ocultar", true);

@@ -26,12 +26,13 @@ def cargarUsuario():
     print("Estoy dentro de mi test")
     return "409",200
 
+
 @app.route('/iniciarSesion', methods=['POST'])
 def iniciarSesion():
     udao = UsuarioDAO()
     usuario = udao.iniciarSesion(request.values["nick"], request.values["passwrd"])
     if (usuario is None):
-        return jsonify("usuario no encontrado"), 199  
+        return jsonify("usuario no encontrado"), 300
     return jsonify(usuario), 200
 
 
@@ -47,11 +48,17 @@ def nuevoUsuario():
     print("ME LLEGA")
     print(dni, nick, passwrd, nombre, apellido, saldoInicial)
     print("WESA")
-    
     udao.nuevoUsuario(dni, nick, passwrd, nombre, apellido, saldoInicial)
     print(request.values)
-    return "409",200
+    return "409", 200
 
+
+@app.route('/consultarDivisas', methods=['POST'])
+def consultarDivisas():
+    udao = UsuarioDAO()
+    dni = request.values["dni"]
+    divisas = udao.consultarDivisas(dni)
+    return jsonify(divisas), 200
 
 
 """

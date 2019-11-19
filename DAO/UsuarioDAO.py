@@ -25,6 +25,23 @@ class UsuarioDAO(ConexionBD):
             self.cerrarConexion()
         return usuario
 
+    def consultarDivisas(self, dni):
+        divisas = []
+        try:
+            self.crearConexion()
+            self.cursorDict()
+            consulta = "SELECT * FROM arbolitodb.usuarioxdivisas where Usuario_dni = {};".format(dni)
+            print("ORINTO LA CONSULTAAAAAA")
+            print(consulta)
+            self._micur.execute(consulta)
+            for r in self._micur.fetchall():
+                divisas.append(r)
+        except mysql.connector.errors.IntegrityError as err:
+            print("DANGER ALGO OCURRIO: " + str(err))
+        finally:
+            self.cerrarConexion()
+        return divisas
+
     def nuevoUsuario(self, dni, nick, passwrd, nombre, apellido, saldoInicial):
         
         try:
