@@ -54,14 +54,11 @@ class UsuarioDAO(ConexionBD):
             if consultaCantidad is not None:
                 cantidad = consultaCantidad.get("cantidad", 0) + float(cantidad)
                 consulta = "UPDATE usuarioxdivisas SET cantidad = {} WHERE Usuario_dni = {} and divisas_simbolo = '{}';".format(cantidad,dni,simbolo)
-                print("ConsultaTSTSTSTSTST")
-                print(consulta)
             else:
-                self._micur.execute(consulta)
                 consulta = "INSERT INTO usuarioxdivisas (`Usuario_dni`, `divisas_simbolo`, `cantidad`) VALUES ({}, '{}', {});".format(dni, simbolo, cantidad)
-                print("ConsultaTSTSTSTSTST")
-                print(consulta)
-                self._micur.execute(consulta)
+            print("ConsultaTSTSTSTSTST")
+            print(consulta)
+            self._micur.execute(consulta)
             self._bd.commit()
 
         except mysql.connector.errors.IntegrityError as err:
@@ -70,6 +67,42 @@ class UsuarioDAO(ConexionBD):
             self.cerrarConexion()
         return True
 
+    def retirarDivisas(self, dni, simbolo, cantidad):
+        pudeRetirar = False
+        try:
+            self.crearConexion()
+            self.cursorDict()
+            consulta = "select cantidad from usuarioxdivisas where Usuario_dni = {} and divisas_simbolo = '{}';".format(dni, simbolo)
+            print("ConsultaTSTSTSTSTST")
+            print(consulta)
+            self._micur.execute(consulta)
+            consultaCantidad = self._micur.fetchone()
+            if consultaCantidad is not None:
+                cantidad = consultaCantidad.get("cantidad", 0) - float(cantidad)
+                if(cantidad > 0):
+                    consulta = "UPDATE usuarioxdivisas SET cantidad = {} WHERE Usuario_dni = {} and divisas_simbolo = '{}';".format(cantidad, dni, simbolo)
+                    print("ConsultaTSTSTSTSTST")
+                    print(consulta)
+                    self._micur.execute(consulta)
+                    self._bd.commit()
+                    pudeRetirar = True
+                elif(cantidad == 0):
+                    consulta = "DELETE FROM usuarioxdivisas WHERE Usuario_dni = {} and divisas_simbolo = '{}';".format(dni, simbolo)
+                    print("ConsultaTSTSTSTSTST")
+                    print(consulta)
+                    self._micur.execute(consulta)
+                    self._bd.commit()
+                    pudeRetirar = True
+                else:
+                    print("No te alcanzan los " + simbolo)
+            else:
+                print("error no tiene de esa divisa")
+
+        except mysql.connector.errors.IntegrityError as err:
+            print("DANGER ALGO OCURRIO: " + str(err))
+        finally:
+            self.cerrarConexion()
+        return pudeRetirar
 
     def consultarDivisas(self, dni):
         divisas = []

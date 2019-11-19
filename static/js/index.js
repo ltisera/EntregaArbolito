@@ -139,13 +139,22 @@ function depositar(){
         },
         success: function(response){
             console.log(response);
+        },
+        error: function(response){console.log("MAL")},
+    });
+};
 
-            var txtHTM = "<div class='clsMargen'> Sus Divisas"
-            
-            for (r in response){
-                txtHTM += "<br>" + response[r].divisas_simbolo + ": " + response[r].cantidad;
-            }
-            $("#idContenidoConsultar").html(txtHTM + "</div>");
+function retirar(){
+    $.ajax({
+        url: 'retirarDivisas',
+        type: 'POST',
+        data:{
+            'dni': DNI,
+            'simbolo': $("#idSelRetirarDivisa").val(),
+            'cantidad': $("#idCantidadRetirarDivisa").val(),
+        },
+        success: function(response){
+            console.log(response);
         },
         error: function(response){console.log("MAL")},
     });
