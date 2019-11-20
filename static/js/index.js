@@ -169,20 +169,31 @@ $(document).on('click', ".clsOpc", function() {
 });
 
 $(document).on('click', "#idBtnComprarDivisas", function() {
-    
     $.ajax({
         url: 'usuarioCompraDivisa',
         type: 'POST',
         data: {
             'dni' : DNI,
             'divisaQueCompro' : $("#idSelCompraDivisas").val(),
-            
             'cantidad' : $("#inpCantidadAComprar").val()
         },
         success: function(response){console.log(response)},
         error: function(response){console.log(response)}
     })
-    
+});
+
+$(document).on('click', "#idBtnVenderDivisas", function() {
+    $.ajax({
+        url: 'usuarioVentaDivisa',
+        type: 'POST',
+        data: {
+            'dni' : DNI,
+            'divisaQuePago' : $("#idSelVentaDivisas").val(),
+            'cantidad' : $("#inpCantidadAVender").val()
+        },
+        success: function(response){console.log(response)},
+        error: function(response){console.log(response)}
+    })
 });
 
 function cargarSelDeDivisas(){
