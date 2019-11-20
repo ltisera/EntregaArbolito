@@ -2,6 +2,39 @@ var DNI = 0;
 
 $(document).ready(function(){
     console.log("INDICE")
+    $.ajax({
+        url: 'ultimosQuince',
+        type: 'GET',
+        success: function(response){console.log(response)
+            var trace1 = {
+                x: [1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15],
+                y: [
+                    response[0],
+                    response[1],
+                    response[2],
+                    response[3],
+                    response[4],
+                    response[5],
+                    response[6],
+                    response[7],
+                    response[8],
+                    response[9],
+                    response[10],
+                    response[11],
+                    response[12],
+                    response[13],
+                    response[14],
+                ],
+                type: 'scatter'
+              };
+              
+              var data = [trace1];
+              
+              Plotly.newPlot('idDivGrafico', data, {}, {showSendToCloud: true});
+        },
+        error: function(response){console.log(response)}
+    });
+    
 });
 
 $(document).on('click', "#idBtnAjax", function() {
