@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory, render_template, jsonify, request
 import requests
+from datetime import date, timedelta
 
 from DAO.UsuarioDAO import UsuarioDAO
 #Fixer IO presonal api key
@@ -11,6 +12,21 @@ app = Flask(__name__)
 @app.route('/')
 def inicialPagina():
     return render_template('index.html')
+
+#https://data.fixer.io/api/2013-12-24?access_key=38a0f63c483d5b0b1819e315606fb6aa&base=GBP&symbols=USD,CAD,EUR
+@app.route('/ultimosQuince', methods=["GET"])
+def ultimosQuince():
+    print(date.today())
+    listHistorico = []
+    for i in range(1,15):
+        uri = "http://data.fixer.io/api/"+str(date.today() - timedelta(days=i))+"?access_key=38a0f63c483d5b0b1819e315606fb6aa&base=EUR&symbols=USD,ARS"
+        print(uri)
+        quedato = requests.get(uri)
+        convDato = quedato.json()
+        listHistorico.append(convDato["rates"]["ARS"]/convDato["rates"]["USD"])
+    print("LA HISTORICA")
+    print(listHistorico)
+    return jsonify(listHistorico),200
 
 @app.route("/cotizar", methods=["POST"])
 def cotizar():
