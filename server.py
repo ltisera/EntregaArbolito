@@ -30,7 +30,7 @@ def ultimosQuince():
 
 @app.route("/cotizar", methods=["POST"])
 def cotizar():
-    uri = "http://data.fixer.io/api/latest?access_key=38a0f63c483d5b0b1819e315606fb6aa&symbols=USD,AUD,CAD,PLN,MXN,ARS,EUR"
+    uri = "http://data.fixer.io/api/latest?access_key=38a0f63c483d5b0b1819e315606fb6aa&symbols=AED,AFN,ALL,AMD,AOA,ARS,AUD,AWG,AZM,BRL,EUR,JPY,USD"
     quedato = requests.get(uri)
     return quedato.json()
 
@@ -171,9 +171,10 @@ def usuarioVentaDivisa():
     uri = "http://data.fixer.io/api/latest?access_key=38a0f63c483d5b0b1819e315606fb6aa&symbols={},{}".format(divisaCompro, divisaPago)
     cotizaciones = requests.get(uri)
     datosCot = cotizaciones.json()
-    precioCompro = datosCot["rates"][divisaCompro]
-    precioPago = datosCot["rates"][divisaPago] * 0.94
-    cuantoMeSale = float(cantidadQueQuiero) * float(precioPago) * float(precioCompro)
+    precioCompro = (datosCot["rates"][divisaCompro]/datosCot["rates"][divisaPago])*94/100
+    print("Precio de compra " + str(precioCompro))
+    cuantoMeSale = float(cantidadQueQuiero) * float(precioCompro)
+    print("cuantoMesale " + str(cuantoMeSale))
     if cantidadQueTengo <= float(cantidadQueTengo):
         udao.depositarDivisas(dni, divisaCompro, cuantoMeSale)
         udao.retirarDivisas(dni, divisaPago, cantidadQueQuiero)

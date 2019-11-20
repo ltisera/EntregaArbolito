@@ -119,19 +119,14 @@ function mostrarCotizacion(){
             console.log(response);
             console.log("REALIDAD");
             console.log(response.rates);
-            var txtHTM = "<div class='clsMargen'> Precio Venta"
-            
-            for (r in response.rates){
-                txtHTM += "<br>" + r + ": " + (response.rates.ARS/response.rates[r]).toFixed(2);
-            }
-            
-            txtHTM += "<br><br><br>Precio Compra"
-            
-            for (r in response.rates){
-                txtHTM += "<br>" + r + ": " + ((response.rates.ARS/response.rates[r])*94/100).toFixed(2);
-            }
+            var txtHTM = "<div class='clsMargen'><table style='width:100%; text-align: center;'> <tr> <th>Precio Venta</th><th>Precio Compra</th></tr>"
 
-            txtHTM += "<br><br><input type='button' id='idBotonBorrarCuenta' value='Borrar Cuenta' onClick='borrarCuenta()''>"
+            for (r in response.rates){
+                txtHTM += "<tr><td>" + r + ": " + (response.rates.ARS/response.rates[r]).toFixed(2) + "</td>";
+                txtHTM += "<td>" + r + ": " + ((response.rates.ARS/response.rates[r])*94/100).toFixed(2) + "</td></tr>";
+            }
+            
+            txtHTM += " </tr></table><br><br><input type='button' id='idBotonBorrarCuenta' value='Borrar Cuenta' onClick='borrarCuenta()''>"
             
             $("#idDivDivisas").html(txtHTM + "</div>");
 
