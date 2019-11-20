@@ -130,6 +130,8 @@ function mostrarCotizacion(){
             for (r in response.rates){
                 txtHTM += "<br>" + r + ": " + ((response.rates.ARS/response.rates[r])*94/100).toFixed(2);
             }
+
+            txtHTM += "<br><br><input type='button' id='idBotonBorrarCuenta' value='Borrar Cuenta' onClick='borrarCuenta()''>"
             
             $("#idDivDivisas").html(txtHTM + "</div>");
 
@@ -246,3 +248,19 @@ function cargarSelDeDivisas(){
     });
 
 };
+
+function borrarCuenta(){
+    if (confirm("Estas seguro que queres borrar tu cuenta?")) {
+        $.ajax({
+            url: 'borrarCuenta',
+            type: 'POST',
+            data: {
+                'dni' : DNI,
+            },
+            success: function(response){
+                location.reload();
+            },
+            error: function(response){console.log("Error al eliminarte")}
+        });
+    }
+}

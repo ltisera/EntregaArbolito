@@ -104,6 +104,28 @@ class UsuarioDAO(ConexionBD):
             self.cerrarConexion()
         return pudeRetirar
 
+    def borrarCuenta(self, dni):
+        pudeBorrar = False
+        try:
+            self.crearConexion()
+            self.cursorDict()
+            consulta = "DELETE FROM usuarioxdivisas WHERE Usuario_dni = {};".format(dni)
+            print("ConsultaTSTSTSTSTST")
+            print(consulta)
+            self._micur.execute(consulta)
+            consulta = "DELETE FROM usuario WHERE dni = {};".format(dni)
+            print("ConsultaTSTSTSTSTST")
+            print(consulta)
+            self._micur.execute(consulta)
+            self._bd.commit()
+            pudeBorrar = True
+
+        except mysql.connector.errors.IntegrityError as err:
+            print("DANGER ALGO OCURRIO: " + str(err))
+        finally:
+            self.cerrarConexion()
+        return pudeBorrar
+
     def consultarDivisas(self, dni):
         divisas = []
         try:

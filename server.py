@@ -87,12 +87,12 @@ def nuevoUsuario():
     print(request.values)
     return "409", 200
 
+
 @app.route('/consultarDivisasUsuario/<int:dni>', methods=['GET'])
 def consultarDivisasUsuario(dni):
     udao = UsuarioDAO()
     divisas = udao.consultarDivisas(dni)
     return jsonify(divisas), 200
-
 
 
 @app.route('/consultarDivisas', methods=['POST'])
@@ -101,6 +101,15 @@ def consultarDivisas():
     dni = request.values["dni"]
     divisas = udao.consultarDivisas(dni)
     return jsonify(divisas), 200
+
+
+@app.route('/borrarCuenta', methods=['POST'])
+def borrarCuenta():
+    udao = UsuarioDAO()
+    dni = request.values["dni"]
+    divisas = udao.borrarCuenta(dni)
+    return jsonify(divisas), 200
+
 
 @app.route('/usuarioCompraDivisa', methods=['POST'])
 def usuarioCompraDivisa():
